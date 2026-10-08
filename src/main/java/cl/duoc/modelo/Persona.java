@@ -1,5 +1,11 @@
 package cl.duoc.modelo;
 
+/**
+ * Clase abstracta base que agrupa los atributos y comportamientos comunes
+ * de las personas dentro del sistema (Usuarios y Estudiantes).
+ *
+ * @author Katherine
+ */
 public abstract class Persona {
 
     private int id;

@@ -1,5 +1,11 @@
 package cl.duoc.modelo;
 
+
+/**
+ * Representa a un estudiante de la institución registrado en el sistema.
+ * Hereda de la clase Persona y contiene la información necesaria paa gestionar sus préstamos y llevar un historial individual.
+ * @author Katherine
+ */
 public class Estudiante extends Persona{
     private String curso;
 

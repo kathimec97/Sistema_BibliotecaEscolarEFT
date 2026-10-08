@@ -1,5 +1,9 @@
 package cl.duoc.modelo;
 
+/**
+ * Representa a un usuario administrativo del sistema (como un bibliotecario).
+ * Hereda los datos personales de la clase Persona y añade las credenciales necesarias para el módulo de autenticación.
+ */
 public class Usuario extends Persona{
 
     private String contrasenia;

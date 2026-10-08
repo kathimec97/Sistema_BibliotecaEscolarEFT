@@ -1,16 +1,23 @@
 package cl.duoc.modelo;
 
-public class Libros {
+
+/**
+ * Representa un libro físico dentro del inventario de la biblioteca.
+ * Contiene la información bibliográfica y el stock disponible para préstamos.
+ *
+ * @author Katherine
+ */
+public class Libro {
     private int id;
     private String titulo;
     private String autor;
     private String isbn;
     private String editorial;
     private int stock;
-    private Categorias id_categoria;
+    private Categoria id_categoria;
 
 
-    public Libros(int id, String titulo, String autor, String isbn, String editorial, int stock, Categorias id_categoria) {
+    public Libro(int id, String titulo, String autor, String isbn, String editorial, int stock, Categoria id_categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -68,11 +75,11 @@ public class Libros {
         this.stock = stock;
     }
 
-    public Categorias getId_categoria() {
+    public Categoria getId_categoria() {
         return id_categoria;
     }
 
-    public void setId_categoria(Categorias id_categoria) {
+    public void setId_categoria(Categoria id_categoria) {
         this.id_categoria = id_categoria;
     }
 

@@ -2,16 +2,21 @@ package cl.duoc.modelo;
 
 import java.util.Date;
 
-public class Prestamos {
+/**
+ * Representa una transacción de préstamo de un libro a un estudiante.
+ * Registra las fechas de entrega y devolución, permitiendo controlar disponibilidad del material y detectar atrasos.
+ * @author Katherine
+ */
+public class Prestamo {
 
     private int id;
     private Estudiante id_estudiante;
-    private Libros id_libro;
+    private Libro id_libro;
     private Date fecha_prestamo;
     private Date fecha_devolucion;
     private int devuelto;
 
-    public Prestamos(int id, Estudiante id_estudiante, Libros id_libro, Date fecha_prestamo, Date fecha_devolucion, int devuelto) {
+    public Prestamo(int id, Estudiante id_estudiante, Libro id_libro, Date fecha_prestamo, Date fecha_devolucion, int devuelto) {
         this.id = id;
         this.id_estudiante = id_estudiante;
         this.id_libro = id_libro;
@@ -36,11 +41,11 @@ public class Prestamos {
         this.id_estudiante = id_estudiante;
     }
 
-    public Libros getId_libro() {
+    public Libro getId_libro() {
         return id_libro;
     }
 
-    public void setId_libro(Libros id_libro) {
+    public void setId_libro(Libro id_libro) {
         this.id_libro = id_libro;
     }
 

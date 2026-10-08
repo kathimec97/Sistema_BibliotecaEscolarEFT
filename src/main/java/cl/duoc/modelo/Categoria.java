@@ -1,10 +1,13 @@
 package cl.duoc.modelo;
 
-public class Categorias {
+/**
+ * Representa la categoría o clasificación temática a la que pertenece un libro.
+ */
+public class Categoria {
     private int id;
     private String nombre;
 
-    public Categorias(int id, String nombre) {
+    public Categoria(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

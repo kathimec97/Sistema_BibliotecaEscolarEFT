@@ -12,9 +12,9 @@ import java.util.List;
  * @author katherine
  */
 public interface CategoriaDAO {
-    void insertarLibro(Categoria categoria) throws SQLException;
-    void actualizarLibro(Categoria categoria)   throws SQLException;
-    void eliminarLibro(int id) throws SQLException;
+    void insertar(Categoria categoria) throws SQLException;
+    void actualizar(Categoria categoria)   throws SQLException;
+    void eliminar(int id) throws SQLException;
    Categoria buscarPorId(int id) throws SQLException;
-   List<Libro> listarTodos() throws SQLException;
+   List<Categoria> listarTodas() throws SQLException;
 }

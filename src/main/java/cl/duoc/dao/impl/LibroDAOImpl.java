@@ -37,7 +37,7 @@ public class LibroDAOImpl implements LibroDAO {
      */
     @Override
     public void insertar(Libro libro) throws SQLException {
-        String sql = "INSERT INTO libro (titulo, autor, isbn, editorial, stock, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO libros (titulo, autor, isbn, editorial, stock, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
             stmt.setString(1, libro.getTitulo());

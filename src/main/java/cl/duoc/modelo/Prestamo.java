@@ -10,18 +10,18 @@ import java.util.Date;
 public class Prestamo {
 
     private int id;
-    private Estudiante id_estudiante;
-    private Libro id_libro;
-    private Date fecha_prestamo;
-    private Date fecha_devolucion;
-    private int devuelto;
+    private Estudiante estudiante;
+    private Libro libro;
+    private Date fechaPrestamo;
+    private Date fechaDevolucion;
+    private boolean devuelto;
 
-    public Prestamo(int id, Estudiante id_estudiante, Libro id_libro, Date fecha_prestamo, Date fecha_devolucion, int devuelto) {
+    public Prestamo(int id, Estudiante estudiante, Libro libro, Date fechaPrestamo, Date fechaDevolucion, boolean devuelto) {
         this.id = id;
-        this.id_estudiante = id_estudiante;
-        this.id_libro = id_libro;
-        this.fecha_prestamo = fecha_prestamo;
-        this.fecha_devolucion = fecha_devolucion;
+        this.estudiante = estudiante;
+        this.libro = libro;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = fechaDevolucion;
         this.devuelto = devuelto;
     }
 
@@ -33,43 +33,43 @@ public class Prestamo {
         this.id = id;
     }
 
-    public Estudiante getId_estudiante() {
-        return id_estudiante;
+    public Estudiante getEstudiante() {
+        return estudiante;
     }
 
-    public void setId_estudiante(Estudiante id_estudiante) {
-        this.id_estudiante = id_estudiante;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
-    public Libro getId_libro() {
-        return id_libro;
+    public Libro getLibro() {
+        return libro;
     }
 
-    public void setId_libro(Libro id_libro) {
-        this.id_libro = id_libro;
+    public void setLibro(Libro libro) {
+        this.libro = libro;
     }
 
-    public Date getFecha_prestamo() {
-        return fecha_prestamo;
+    public Date getFechaPrestamo() {
+        return fechaPrestamo;
     }
 
-    public void setFecha_prestamo(Date fecha_prestamo) {
-        this.fecha_prestamo = fecha_prestamo;
+    public void setFechaPrestamo(Date fechaPrestamo) {
+        this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Date getFecha_devolucion() {
-        return fecha_devolucion;
+    public Date getFechaDevolucion() {
+        return fechaDevolucion;
     }
 
-    public void setFecha_devolucion(Date fecha_devolucion) {
-        this.fecha_devolucion = fecha_devolucion;
+    public void setFechaDevolucion(Date fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
     }
 
-    public int getDevuelto() {
+    public boolean isDevuelto() {
         return devuelto;
     }
 
-    public void setDevuelto(int devuelto) {
+    public void setDevuelto(boolean devuelto) {
         this.devuelto = devuelto;
     }
 
@@ -77,10 +77,10 @@ public class Prestamo {
     public String toString() {
         return "Prestamo: " + '\n' +
                 "ID: " + id + '\n' +
-                "ID estudiante: " + id_estudiante + '\n' +
-                "ID libro: " + id_libro + '\n' +
-                "Fecha prestamo: " + fecha_prestamo + '\n' +
-                "Fecha devolucion: " + fecha_devolucion + '\n' +
+                "ID estudiante: " + estudiante + '\n' +
+                "ID libro: " + libro + '\n' +
+                "Fecha prestamo: " + fechaPrestamo + '\n' +
+                "Fecha devolucion: " + fechaDevolucion + '\n' +
                 "Devuelto: " + devuelto;
     }
 }

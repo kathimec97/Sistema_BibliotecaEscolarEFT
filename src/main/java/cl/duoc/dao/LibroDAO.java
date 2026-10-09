@@ -16,5 +16,5 @@ public interface LibroDAO {
     void eliminar(int id) throws SQLException;
     Libro buscarPorId(int id) throws SQLException;
     List<Libro> listarTodos() throws SQLException;
-    List<Libro> listarLibroMasPrestado() throws SQLException;
+    List<Libro> listarLibrosMasPrestados() throws SQLException;
 }

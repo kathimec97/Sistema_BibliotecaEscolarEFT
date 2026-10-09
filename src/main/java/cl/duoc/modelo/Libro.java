@@ -14,17 +14,17 @@ public class Libro {
     private String isbn;
     private String editorial;
     private int stock;
-    private Categoria id_categoria;
+    private Categoria categoria;
 
 
-    public Libro(int id, String titulo, String autor, String isbn, String editorial, int stock, Categoria id_categoria) {
+    public Libro(int id, String titulo, String autor, String isbn, String editorial, int stock, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
         this.editorial = editorial;
         this.stock = stock;
-        this.id_categoria = id_categoria;
+        this.categoria = categoria;
     }
 
     public int getId() {
@@ -75,12 +75,12 @@ public class Libro {
         this.stock = stock;
     }
 
-    public Categoria getId_categoria() {
-        return id_categoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setId_categoria(Categoria id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
@@ -92,6 +92,6 @@ public class Libro {
                 "ISBN: " + isbn + '\n' +
                 "Editorial: " + editorial + '\n' +
                 "Stock: " + stock + '\n' +
-                "ID categoria: " + id_categoria;
+                "ID categoria: " + categoria;
     }
 }

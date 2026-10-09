@@ -7,11 +7,11 @@ package cl.duoc.modelo;
 public class Usuario extends Persona{
 
     private String contrasenia;
-    private String rol;
+    private Rol rol;
 
 
 
-    public Usuario(int id, String nombre, String rut, String correo, String contrasenia, String rol) {
+    public Usuario(int id, String nombre, String rut, String correo, String contrasenia, Rol rol) {
         super(id, nombre, rut, correo);
         this.contrasenia = contrasenia;
         this.rol = rol;
@@ -25,11 +25,11 @@ public class Usuario extends Persona{
         this.contrasenia = contrasenia;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 

@@ -2,6 +2,7 @@ package cl.duoc.dao;
 
 import cl.duoc.modelo.Usuario;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public interface UsuarioDAO {
 
-    Usuario autenticar(String correo, String contrasenia);
-    void insertar(Usuario usuario);
-    void actualizar(Usuario usuario);
-    void eliminar(int id);
-    Usuario buscarPorId(int id);
-    List<Usuario> listarTodos();
+    Usuario autenticar(String correo, String contrasenia) throws SQLException;
+    void insertar(Usuario usuario) throws SQLException;
+    void actualizar(Usuario usuario) throws SQLException;
+    void eliminar(int id) throws SQLException;
+    Usuario buscarPorId(int id) throws SQLException;
+    List<Usuario> listarTodos() throws SQLException;
 }

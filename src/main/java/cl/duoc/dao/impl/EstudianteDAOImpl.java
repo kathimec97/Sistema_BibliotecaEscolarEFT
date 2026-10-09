@@ -54,6 +54,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al insertar estudiante: " + estudiante.getNombre(), e);
+            throw e;
         }
     }
 
@@ -80,6 +81,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al actualizar estudiante: " + estudiante.getNombre(), e);
+            throw e;
         }
     }
 
@@ -89,7 +91,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
      * @param id El identificador único del estudiante que se desea eliminar.
      */
     @Override
-    public void eliminar(int id) {
+    public void eliminar(int id) throws SQLException {
         String sql = "DELETE FROM estudiantes WHERE id=?";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
@@ -98,6 +100,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al eliminar estudiante: " + id, e);
+            throw e;
         }
     }
 
@@ -132,6 +135,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
             }
         } catch(SQLException e)  {
             LOGGER.log(Level.SEVERE, "Error al buscar estudiante: " + id, e);
+            throw e;
         }
     return estudiante;
 }
@@ -165,6 +169,7 @@ public class EstudianteDAOImpl implements EstudianteDAO {
 
             }catch(SQLException e){
             LOGGER.log(Level.SEVERE, "Error al listar todos los estudiantes", e);
+            throw e;
         }
         return lista;
         }

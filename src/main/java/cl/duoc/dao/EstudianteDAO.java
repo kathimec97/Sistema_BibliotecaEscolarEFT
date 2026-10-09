@@ -2,6 +2,7 @@ package cl.duoc.dao;
 
 import cl.duoc.modelo.Estudiante;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -10,9 +11,9 @@ import java.util.List;
  * @author Katherine.
  */
 public interface EstudianteDAO {
-    void insertar(Estudiante estudiante);
-    void actualizar(Estudiante estudiante);
-    void eliminar(int id);
-    Estudiante buscarPorId(int id);
-    List<Estudiante> listarTodos();
+    void insertar(Estudiante estudiante) throws SQLException;
+    void actualizar(Estudiante estudiante) throws SQLException;
+    void eliminar(int id) throws SQLException;
+    Estudiante buscarPorId(int id) throws SQLException;
+    List<Estudiante> listarTodos() throws SQLException;
 }

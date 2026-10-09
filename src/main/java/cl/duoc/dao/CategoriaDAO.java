@@ -3,6 +3,7 @@ package cl.duoc.dao;
 import cl.duoc.modelo.Categoria;
 import cl.duoc.modelo.Libro;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,9 +12,9 @@ import java.util.List;
  * @author katherine
  */
 public interface CategoriaDAO {
-    void insertarLibro(Categoria categoria);
-    void actualizarLibro(Categoria categoria);
-    void eliminarLibro(int id);
-   Categoria buscarPorId(int id);
-   List<Libro> listarTodos();
+    void insertarLibro(Categoria categoria) throws SQLException;
+    void actualizarLibro(Categoria categoria)   throws SQLException;
+    void eliminarLibro(int id) throws SQLException;
+   Categoria buscarPorId(int id) throws SQLException;
+   List<Libro> listarTodos() throws SQLException;
 }

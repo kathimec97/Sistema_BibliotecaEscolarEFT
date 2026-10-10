@@ -17,4 +17,6 @@ public interface LibroDAO {
     Libro buscarPorId(int id) throws SQLException;
     List<Libro> listarTodos() throws SQLException;
     List<Libro> listarLibrosMasPrestados() throws SQLException;
+    Libro buscarPorIsbn(String isbn) throws SQLException;
+    void actualizarStock(int id, int nuevoStock) throws SQLException;
 }

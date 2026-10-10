@@ -200,4 +200,58 @@ public class LibroDAOImpl implements LibroDAO {
         }
 return lista;
     }
+
+    /**
+     * Busca un libro especifico en la base de datos mediante su ISBN.
+     * @param isbn El codigo ISBN del libro
+     * @return un Objeto de tipo libro con sus datos
+     * @throws SQLException
+     */
+    @Override
+    public Libro buscarPorIsbn(String isbn) throws SQLException {
+        String sql = "SELECT * FROM libros WHERE isbn=?";
+        Libro libro = null;
+        CategoriaDAO categoriaDAO = new CategoriaDAOImpl();
+        try (PreparedStatement stmt = this.getConnection().prepareStatement(sql)) {
+            stmt.setString(1, isbn);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int id_categoria = rs.getInt("id_categoria");
+                Categoria categoriaObj = categoriaDAO.buscarPorId(id_categoria);
+                libro = new Libro(
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getString("autor"),
+                        rs.getString("isbn"),
+                        rs.getString("editorial"),
+                        rs.getInt("stock"),
+                        categoriaObj
+                );
+            }
+        }catch(SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al buscar libro: " + isbn, e);
+            throw e;
+        }
+        return libro;
+    }
+
+    /**
+     * Actualiza únicamente el stock de un libro especifico.
+     * @param id identificador del Libro
+     * @param nuevoStock la cantidad de stock que quedará disponible
+     *
+     */
+  @Override
+    public void actualizarStock(int id, int nuevoStock) throws SQLException {
+        String sql = "UPDATE libros SET stock=? WHERE id=?";
+        try (PreparedStatement stmt = this.getConnection().prepareStatement(sql)) {
+            stmt.setInt(1, nuevoStock);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+
+        }catch(SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al actualizar libro: " + id, e);
+            throw e;
+        }
+    }
 }

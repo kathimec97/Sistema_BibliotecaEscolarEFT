@@ -16,4 +16,5 @@ public interface EstudianteDAO {
     void eliminar(int id) throws SQLException;
     Estudiante buscarPorId(int id) throws SQLException;
     List<Estudiante> listarTodos() throws SQLException;
+    Estudiante buscarPorRut(String rut) throws SQLException;
 }

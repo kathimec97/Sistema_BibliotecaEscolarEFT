@@ -174,5 +174,33 @@ public class EstudianteDAOImpl implements EstudianteDAO {
         return lista;
         }
 
+    /**
+     * Busca a un estudiante específico en la base de datos mediante su RUT.
+     * @param rut El Rut del estudiante a buscar
+     * @return un Objeto Estudiante con los datos encontrados.
+     * @throws SQLException
+     */
+    public Estudiante buscarPorRut(String rut) throws SQLException {
+        String sql = "SELECT * FROM estudiantes WHERE rut=?";
+        Estudiante estudiante = null;
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+            stmt.setString(1, rut);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                estudiante = new Estudiante(
+                        rs.getInt("Id"),
+                        rs.getString("nombre"),
+                        rs.getString("rut"),
+                        rs.getString("curso"),
+                        rs.getString("correo")
+                );
+            }
+        }catch(SQLException e){
+            LOGGER.log(Level.SEVERE, "Error al buscar estudiante: " + rut, e);
+        }
+        return estudiante;
+        }
+
     }
 

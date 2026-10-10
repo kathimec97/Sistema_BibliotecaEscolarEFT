@@ -161,8 +161,8 @@ public class EstudianteDAOImpl implements EstudianteDAO {
                         rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("rut"),
-                        rs.getString("curso"),
-                        rs.getString("correo")
+                        rs.getString("correo"),
+                        rs.getString("curso")
                 );
                 lista.add(estudiante);
             }
@@ -192,8 +192,8 @@ public class EstudianteDAOImpl implements EstudianteDAO {
                         rs.getInt("Id"),
                         rs.getString("nombre"),
                         rs.getString("rut"),
-                        rs.getString("curso"),
-                        rs.getString("correo")
+                        rs.getString("correo"),
+                        rs.getString("curso")
                 );
             }
         }catch(SQLException e){

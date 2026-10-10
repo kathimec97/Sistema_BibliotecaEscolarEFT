@@ -9,8 +9,10 @@ import cl.duoc.modelo.Prestamo;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Controlador encargado de gestionar la lógica de negocio para los préstamos de libros.
@@ -108,5 +110,40 @@ public class PrestamoControlador {
         SwingUtilities.invokeLater(() -> {
             JOptionPane.showMessageDialog(panel, mensaje, titulo, tipo);
         });
+    }
+
+    public List<Prestamo> obtenerPrestamosActivos(){
+        try{
+            return prestamoDAO.listarLibrosEnPrestamo();
+        }catch (SQLException e){
+            System.err.println("Error al obtener los prestamos: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public void procesarDevolucion(int idPrestamo, JPanel panelPadre) {
+        try {
+            PrestamoDAOImpl daoImpl = new PrestamoDAOImpl();
+            daoImpl.registrarDevolucion(idPrestamo);
+
+            JOptionPane.showMessageDialog(panelPadre, "Devolución registrada con éxito, Stock restaurado.",
+            "Exito",
+            JOptionPane.INFORMATION_MESSAGE);
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(panelPadre, "Error al registrar devolución: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Busca un préstamo por ID para verificar su existencia o seleccionarlo
+     */
+    public Prestamo buscarPrestamoPorId(int id) {
+        try{
+            PrestamoDAOImpl daoImpl = new PrestamoDAOImpl();
+            return prestamoDAO.buscarPorId(id);
+        }catch (SQLException e){
+            System.err.println("Error al buscar el prestamo: " + e.getMessage());
+            return null;
+        }
     }
 }

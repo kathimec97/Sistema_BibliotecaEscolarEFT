@@ -33,9 +33,10 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
     /**
      * Inserta un nuevo registro préstamo en la base de datos.
-     *
+     * <p>
      * Extrae los identificadores desde los objetos Estudiante y libro encapsulados
      * dentro del objeto Prestamo.
+     *
      * @param prestamo Objeto con los datos del préstamo a registrar.
      * @throws SQLException si ocurre un error de restricción o conexión.
      */
@@ -84,6 +85,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 
     /**
      * Elimina físicamente un registro de préstamo de la base de datos.
+     *
      * @param id El identificador del préstamo a eliminar
      * @throws SQLException
      */
@@ -93,8 +95,8 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
-        }catch (SQLException e){
-            LOGGER.log(Level.SEVERE, "Error al eliminar préstamo con ID: "+ id , e);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al eliminar préstamo con ID: " + id, e);
             throw e;
         }
     }
@@ -113,7 +115,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         EstudianteDAO estudianteDAO = new EstudianteDAOImpl();
         LibroDAO libroDAO = new LibroDAOImpl();
 
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -130,7 +132,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
                 ));
 
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al listar Prestamos", e);
             throw e;
         }
@@ -152,9 +154,9 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         String sql = "SELECT * FROM prestamos WHERE id_estudiante=?";
         EstudianteDAO estudianteDAO = new EstudianteDAOImpl();
         LibroDAO libroDAO = new LibroDAOImpl();
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
             stmt.setInt(1, idEstudiante);
-            try(ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Estudiante estudianteObj = estudianteDAO.buscarPorId(rs.getInt("id_estudiante"));
                     Libro libroObj = libroDAO.buscarPorId(rs.getInt("id_libro"));
@@ -168,7 +170,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
                     ));
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al obtener historial del estudiante: " + idEstudiante, e);
             throw e;
         }
@@ -178,6 +180,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
     /**
      * Obtiene una lista de todos los préstamos que actualmente no han sido devueltos, funcionalidad requerida
      * para el control de inventario.
+     *
      * @return Una lista de objetos Préstamo activos (Pendientes de devolución).
      * @throws SQLException
      */
@@ -189,8 +192,8 @@ public class PrestamoDAOImpl implements PrestamoDAO {
         EstudianteDAO estudianteDAO = new EstudianteDAOImpl();
         LibroDAO libroDAO = new LibroDAOImpl();
 
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()){
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Estudiante estudianteObj = estudianteDAO.buscarPorId(rs.getInt("id_estudiante"));
                 Libro libroObj = libroDAO.buscarPorId(rs.getInt("id_libro"));
@@ -204,10 +207,79 @@ public class PrestamoDAOImpl implements PrestamoDAO {
                 ));
 
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al obtener listar libros En Préstamo", e);
             throw e;
         }
         return lista;
+    }
+
+    /**
+     * Busca un préstamo en la base de datos según su identificador único.
+     *
+     * @param id El identificador único del préstamo.
+     * @return Un objeto Préstamo con la información asociada o null si no existe.
+     * @throws SQLException
+     */
+    @Override
+    public Prestamo buscarPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM prestamos WHERE id=?";
+        Prestamo prestamo = null;
+        EstudianteDAO estudianteDAO = new EstudianteDAOImpl();
+        LibroDAO libroDAO = new LibroDAOImpl();
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            try(ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Estudiante estudianteObj = estudianteDAO.buscarPorId(rs.getInt("id_estudiante"));
+                    Libro libroObj = libroDAO.buscarPorId(rs.getInt("id_libro"));
+                    prestamo = new Prestamo(
+                            rs.getInt("id"),
+                            estudianteObj,
+                            libroObj,
+                            rs.getDate("fecha_prestamo"),
+                            rs.getDate("fecha_devolucion"),
+                            rs.getBoolean("devuelto")
+                    );
+                }
+            }
+        }catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al obtener prestamo" + id, e);
+        }
+        return prestamo;
+    }
+
+    /**
+     * Registra la devolución de un préstamo activo, cambiando su estado a devuelto y sumando
+     * una unidad al stock disponible del libro correspondiente.
+     * @param idPrestamo El identificador del préstamo que se va a cerrar.
+     * @throws SQLException
+     */
+    @Override
+    public void registrarDevolucion(int idPrestamo) throws SQLException {
+        Prestamo prestamo = buscarPorId(idPrestamo);
+        if(prestamo == null) {
+            throw new SQLException("El préstamo con ID : " + idPrestamo + " no existe");
+        }
+
+        String sqlUpdatePrestamo = "UPDATE prestamos SET devuelto=true WHERE id=?";
+        try (PreparedStatement stmt = getConnection().prepareStatement(sqlUpdatePrestamo)) {
+            stmt.setInt(1, idPrestamo);
+            stmt.executeUpdate();
+
+        }catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al actualizar el estado del prestamo", e);
+            throw e;
+        }
+
+        String sqlUdateStock = "UPDATE libros SET stock=stock+1 WHERE id=?";
+        try (PreparedStatement stmt = getConnection().prepareStatement(sqlUdateStock)) {
+            stmt.setInt(1, prestamo.getLibro().getId());
+            stmt.executeUpdate();
+        }catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al actualizar el stock del libro: " + prestamo.getLibro().getId(),  e);
+            throw e;
+        }
     }
 }

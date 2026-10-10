@@ -19,4 +19,7 @@ public interface PrestamoDAO {
     //Para los reportes
     List<Prestamo> historialPorEstudiante(int idEstudiante) throws SQLException;
     List<Prestamo> listarLibrosEnPrestamo() throws SQLException;
+
+    void registrarDevolucion(int idPrestamo) throws SQLException;
+    Prestamo buscarPorId(int idPrestamo) throws SQLException;
 }

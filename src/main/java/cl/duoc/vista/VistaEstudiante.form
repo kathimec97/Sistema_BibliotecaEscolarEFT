@@ -91,6 +91,26 @@
               </component>
             </children>
           </grid>
+          <grid id="42692" binding="tarjetaPrestamos" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <card name="Card2"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <scrollpane id="3ab9a" binding="scrollPrestamos">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="ccbd5" class="javax.swing.JTable" binding="tablaMisPrestamos">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

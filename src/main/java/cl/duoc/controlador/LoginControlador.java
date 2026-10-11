@@ -25,7 +25,7 @@ public void procesarLogin(String correo, String contrasenia, VistaLogin vistaLog
                 vistaPrincipal.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Bienvenido Estudiante: " + usuario.getNombre());
-                VistaEstudiante vistaEstudiante = new VistaEstudiante();
+                VistaEstudiante vistaEstudiante = new VistaEstudiante(usuario);
                 vistaEstudiante.setVisible(true);
             }
 
